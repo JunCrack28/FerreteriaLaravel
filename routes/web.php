@@ -11,8 +11,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/usuarios/lista', [UsuarioController::class, 'index'])->name('usuarios.lista');
-Route::resource('usuarios', UsuarioController::class);
+Route::get('/usuarios/lista', [UsuarioController::class, 'lista'])->name('usuarios.lista');
+
+Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 
 Route::resource('imagenes', ImagenProductoController::class);
 

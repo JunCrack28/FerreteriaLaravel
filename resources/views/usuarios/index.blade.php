@@ -197,7 +197,7 @@
 <div class="col-sm-12 col-xl-6">
     <div class="bg-secondary rounded h-100 p-4">
         <h6 class="mb-4">Formulario de Usuarios</h6>
-        <form action="{{ route('usuarios.store') }}" method="POST">
+        <form action="{{ route('usuarios.lista') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>

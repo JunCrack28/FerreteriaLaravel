@@ -12,6 +12,11 @@ class UsuarioController extends Controller
     $usuarios = Usuario::all();
     return view('usuarios.index', compact('usuarios'));
 }
+public function lista()
+{
+    $usuarios = Usuario::all();
+    return view('usuarios.lista', compact('usuarios')); // Cambia a lista.blade.php
+}
 
 
     public function create()
