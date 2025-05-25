@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>Ferreteria</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -47,8 +47,11 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#"><i class="fa fa-dollar"></i> CR</a></li>
+						<li><a href="/login/loginUsuario"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
+						<li><a href="{{ route('usuarios.index') }}"><i class="fa fa-user-o"></i> Administrador</a></li>
+
+
 					</ul>
 				</div>
 			</div>
@@ -75,17 +78,17 @@
 							<div class="header-search">
 								<form>
 									<select class="input-select">
-										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										<option value="0">Todas las categorias</option>
+										<option value="1">Categoria 01</option>
+										<option value="1">Categoria 02</option>
 									</select>
 									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+									<button class="search-btn">Buscar</button>
 								</form>
 							</div>
 						</div>
 						<!-- /SEARCH BAR -->
-
+						
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
@@ -93,12 +96,13 @@
 								<div>
 									<a href="#">
 										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
+										<span>Tu lista de deseos</span>
 										<div class="qty">2</div>
 									</a>
 								</div>
 								<!-- /Wishlist -->
-
+	
+								
 								<!-- Cart -->
 								<div class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -196,7 +200,7 @@
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="./img/shop01.png" alt="">
+								<img src="./img/herramienta1.jpg" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>Laptop<br>Collection</h3>
@@ -210,7 +214,7 @@
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="./img/shop03.png" alt="">
+								<img src="./img/herramienta9.jpg" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>Accessories<br>Collection</h3>
@@ -224,7 +228,7 @@
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
-								<img src="./img/shop02.png" alt="">
+								<img src="./img/herramienta8.jpg" alt="">
 							</div>
 							<div class="shop-body">
 								<h3>Cameras<br>Collection</h3>
@@ -253,10 +257,10 @@
 							<h3 class="title">New Products</h3>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+									<li class="active"><a data-toggle="tab" href="#tab1">Sierra</a></li>
+									<li><a data-toggle="tab" href="#tab1">Tornillos</a></li>
+									<li><a data-toggle="tab" href="#tab1">Martillos</a></li>
+									<li><a data-toggle="tab" href="#tab1">Desatornillador</a></li>
 								</ul>
 							</div>
 						</div>
@@ -273,7 +277,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product01.png" alt="">
+												<img src="./img/herramienta1.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 													<span class="new">NEW</span>
@@ -305,7 +309,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product02.png" alt="">
+												<img src="./img/herramienta2.webp" alt="">
 												<div class="product-label">
 													<span class="new">NEW</span>
 												</div>
@@ -336,7 +340,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product03.png" alt="">
+												<img src="./img/herramienta4.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 												</div>
@@ -362,7 +366,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product04.png" alt="">
+												<img src="./img/herramienta5.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -390,7 +394,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product05.png" alt="">
+												<img src="./img/herramienta6.webp" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -429,51 +433,6 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- HOT DEAL SECTION -->
-		<div id="hot-deal" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="hot-deal">
-							<ul class="hot-deal-countdown">
-								<li>
-									<div>
-										<h3>02</h3>
-										<span>Days</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>10</h3>
-										<span>Hours</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>34</h3>
-										<span>Mins</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>60</h3>
-										<span>Secs</span>
-									</div>
-								</li>
-							</ul>
-							<h2 class="text-uppercase">hot deal this week</h2>
-							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /HOT DEAL SECTION -->
 
 		<!-- SECTION -->
 		<div class="section">
@@ -508,7 +467,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product06.png" alt="">
+												<img src="./img/herramienta7.avif" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 													<span class="new">NEW</span>
@@ -540,7 +499,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product07.png" alt="">
+												<img src="./img/herramienta8.jpg" alt="">
 												<div class="product-label">
 													<span class="new">NEW</span>
 												</div>
@@ -571,7 +530,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product08.png" alt="">
+												<img src="./img/herramienta9.jpg" alt="">
 												<div class="product-label">
 													<span class="sale">-30%</span>
 												</div>
@@ -597,7 +556,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product09.png" alt="">
+												<img src="./img/herramienta10.webp" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -625,7 +584,7 @@
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
-												<img src="./img/product01.png" alt="">
+												<img src="./img/herramienta1.jpg" alt="">
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
@@ -683,7 +642,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="./img/product07.png" alt="">
+										<img src="./img/herramienta2.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -696,7 +655,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="./img/product08.png" alt="">
+										<img src="./img/herramienta4.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -709,7 +668,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="./img/product09.png" alt="">
+										<img src="./img/herramienta5.jpg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
@@ -724,7 +683,7 @@
 								<!-- product widget -->
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="./img/product01.png" alt="">
+										<img src="./img/herramienta6.wepg" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category">Category</p>
