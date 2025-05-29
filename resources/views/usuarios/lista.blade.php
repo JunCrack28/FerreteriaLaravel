@@ -26,7 +26,7 @@
                 </a>
                 <div class="navbar-nav w-100">
                      <a href="{{route('usuarios.index')}}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Formularios</a>
-                    <a href="/productos/index" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
+                    <a href="{{route('productos.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
                     <a href="{{route('categorias.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Categorias</a>
                      <a href="{{route('usuarios.lista')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>usuarios</a>
                     <a href="{{route('imagenes.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Imagenes</a>
@@ -58,47 +58,56 @@
             </nav>
             <!-- Navbar End -->
 
-            <div class="container-fluid pt-4 px-4">
-                <h6 class="mb-4">Tabla de Usuarios</h6>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID Usuario</th>
-                            <th>Nombre</th>
-                            <th>Teléfono</th>
-                            <th>Fecha de Registro</th>
-                            <th>Correo</th>
-                            <th>Tipo de Usuario</th>
-                            <th>Ruta Imagen Usuario</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($usuarios as $usuario)
-                            <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->nombre }}</td>
-                                <td>{{ $usuario->telefono }}</td>
-                                <td>{{ $usuario->fecha_registro }}</td>
-                                <td>{{ $usuario->correo }}</td>
-                                <td>{{ $usuario->tipo_usuario }}</td>
-                                <td><img src="{{ asset($usuario->ruta_imagen_usuario) }}" alt="Usuario" style="width: 50px;"></td>
-                                <td>
-                                    <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-warning">Editar</a>
-                                    <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+           <div class="container-fluid pt-4 px-4">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <h6 class="mb-4">Tabla de Usuarios</h6>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID Usuario</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Fecha de Registro</th>
+                <th>Correo</th>
+                <th>Tipo de Usuario</th>
+                <th>Ruta Imagen Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($usuarios as $usuario)
+                <tr>
+                    <td>{{ $usuario->id }}</td>
+                    <td>{{ $usuario->nombre }}</td>
+                    <td>{{ $usuario->telefono }}</td>
+                    <td>{{ $usuario->fecha_registro }}</td>
+                    <td>{{ $usuario->correo }}</td>
+                    <td>{{ $usuario->tipo_usuario == 1 ? 'Administrador' : 'Cliente' }}</td>
+                    <td>
+                        @if ($usuario->ruta_imagen_usuario)
+                            <img src="{{ asset($usuario->ruta_imagen_usuario) }}" alt="Usuario" style="width: 50px;">
+                        @else
+                            <span>Sin imagen</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
     </div>
 

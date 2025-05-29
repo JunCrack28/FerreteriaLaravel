@@ -23,7 +23,7 @@ class Usuario extends Model
 
      public function ordenes()
     {
-        return $this->hasMany(Producto::class, 'id_usuario');
+        return $this->hasMany(Orden::class, 'id_usuario');
     }
     
 }

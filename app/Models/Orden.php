@@ -27,7 +27,7 @@ class Orden extends Model
 
      public function ordenes()
     {
-        return $this->hasMany(Producto::class, 'id_orden');
+        return $this->hasMany(Orden::class, 'id_orden');
     }
 
      public function productos()

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DarkPan - Categorías</title>
+    <title>DarkPan - Editar Imagen</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,10 +26,10 @@
                 </a>
                 <div class="navbar-nav w-100">
                     <a href="{{ route('usuarios.index') }}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Formularios</a>
-                      <a href="{{route('productos.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
-                    <a href="{{ route('categorias.index') }}" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Categorías</a>
+                    <a href="{{route('productos.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
+                    <a href="{{ route('categorias.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Categorías</a>
                     <a href="{{ route('usuarios.lista') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Usuarios</a>
-                    <a href="{{ route('imagenes.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Imágenes</a>
+                    <a href="{{ route('imagenes.index') }}" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Imágenes</a>
                 </div>
             </nav>
         </div>
@@ -58,52 +58,48 @@
             </nav>
             <!-- Navbar End -->
 
-            <!-- Table Start -->
+            <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                <h6 class="mb-4">Tabla de Categorías</h6>
-     <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID Categoría</th>
-            <th>Nombre Categoría</th>
-            <th>Logo</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($categorias as $categoria)
-            <tr>
-                <td>{{ $categoria->id }}</td>
-                <td>{{ $categoria->nombre_categoria }}</td>
-                <td>
-                    @if ($categoria->logo)
-                        <img src="{{ asset($categoria->logo) }}" alt="{{ $categoria->nombre_categoria }}" style="width: 50px;">
-                    @else
-                        <span>Sin imagen</span>
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">Editar Imagen</h6>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
-                </td>
-                <td>
-                    <a href="{{ route('categorias.edit', $categoria) }}" class="btn btn-warning">Editar</a>
-                    <form action="{{ route('categorias.destroy', $categoria) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('imagenes.update', $imagen->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <input type="number" class="form-control" name="tipo" value="{{ old('tipo', $imagen->tipo) }}">
+                            @error('tipo')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="ruta_imagen" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" name="ruta_imagen" accept="image/*">
+                            @error('ruta_imagen')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            @if ($imagen->ruta_imagen)
+                                <p>Imagen actual: <img src="{{ asset($imagen->ruta_imagen) }}" alt="Imagen" style="width: 50px;"></p>
+                            @else
+                                <p>Imagen actual: <span>Sin imagen</span></p>
+                            @endif
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Imagen</button>
                     </form>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+                </div>
             </div>
-            <!-- Table End -->
+            <!-- Form End -->
         </div>
         <!-- Content End -->
-
     </div>
 
     <!-- JavaScript Libraries -->
