@@ -71,7 +71,7 @@
            
                      <div class="navbar-nav w-100">
                      <a href="{{route('usuarios.index')}}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Formularios</a>
-                    <a href="/productos/index" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
+                    <a href="{{route('productos.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Productos</a>
                     <a href="{{route('categorias.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Categorias</a>
                     <a href="{{route('usuarios.lista')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>usuarios</a>
                     <a href="{{route('imagenes.index')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Imagenes</a>
@@ -130,102 +130,198 @@
 <!-- Form Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <!-- Formulario de Productos -->
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Formulario de Productos</h6>
-                <form>
-                    <div class="mb-3">
-                        <label for="codigo" class="form-label">Código</label>
-                        <input type="text" class="form-control" id="codigo" required>
+<!-- Formulario de Productos -->
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Formulario de Productos</h6>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form action="{{ route('productos.store') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="codigo" class="form-label">Código</label>
+                                    <input type="text" class="form-control" name="codigo" value="{{ old('codigo') }}" required>
+                                    @error('codigo')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" name="estado" required>
+                                        <option value="1" {{ old('estado') == 1 ? 'selected' : '' }}>Activo</option>
+                                        <option value="0" {{ old('estado') == 0 ? 'selected' : '' }}>Inactivo</option>
+                                    </select>
+                                    @error('estado')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio" class="form-label">Precio</label>
+                                    <input type="number" class="form-control" name="precio" value="{{ old('precio') }}" step="0.01" required>
+                                    @error('precio')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <input type="text" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required>
+                                    @error('descripcion')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre_producto" class="form-label">Nombre del Producto</label>
+                                    <input type="text" class="form-control" name="nombre_producto" value="{{ old('nombre_producto') }}" required>
+                                    @error('nombre_producto')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cantidad" class="form-label">Cantidad</label>
+                                    <input type="number" class="form-control" name="cantidad" value="{{ old('cantidad') }}" required>
+                                    @error('cantidad')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="id_imagen" class="form-label">ID de Imagen</label>
+                                    <select class="form-select" name="id_imagen" required>
+                                        @foreach ($imagenes as $imagen)
+                                            <option value="{{ $imagen->id }}" {{ old('id_imagen') == $imagen->id ? 'selected' : '' }}>
+                                                {{ $imagen->id }} - {{ $imagen->ruta_imagen }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_imagen')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="id_categoria" class="form-label">ID de Categoría</label>
+                                    <select class="form-select" name="id_categoria" required>
+                                        @foreach ($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}" {{ old('id_categoria') == $categoria->id ? 'selected' : '' }}>
+                                                {{ $categoria->id }} - {{ $categoria->nombre_categoria }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_categoria')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="estado" class="form-label">Estado</label>
-                        <select class="form-select" id="estado" required>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="precio" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="precio" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <input type="text" class="form-control" id="descripcion" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombre_producto" class="form-label">Nombre del Producto</label>
-                        <input type="text" class="form-control" id="nombre_producto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="id_imagen" class="form-label">ID de Imagen</label>
-                        <input type="number" class="form-control" id="id_imagen" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="id_categoria" class="form-label">ID de Categoría</label>
-                        <input type="number" class="form-control" id="id_categoria" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar Producto</button>
-                </form>
+        
+<!-- Formulario de Categorías -->
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-secondary rounded h-100 p-4">
+        <h6 class="mb-4">Formulario de Categorías</h6>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </div>
-
-        <!-- Formulario de Categorías -->
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Formulario de Categorías</h6>
-                <form>
-                    <div class="mb-3">
-                        <label for="nombre_categoria" class="form-label">Nombre de la Categoría</label>
-                        <input type="text" class="form-control" id="nombre_categoria" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="logo" class="form-label">Logo</label>
-                        <input type="text" class="form-control" id="logo" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar Categoría</button>
-                </form>
+        @endif
+        <form action="{{ route('categorias.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="nombre_categoria" class="form-label">Nombre de la Categoría</label>
+                <input type="text" class="form-control" name="nombre_categoria" value="{{ old('nombre_categoria') }}" required>
+                @error('nombre_categoria')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="logo" class="form-label">Logo (Imagen)</label>
+                <input type="file" class="form-control" name="logo" accept="image/*" required>
+                @error('logo')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Categoría</button>
+        </form>
+    </div>
+</div>
 
- <!-- Formulario de Usuarios -->
+           <!-- Formulario de Usuarios -->
 <div class="col-sm-12 col-xl-6">
     <div class="bg-secondary rounded h-100 p-4">
         <h6 class="mb-4">Formulario de Usuarios</h6>
-        <form action="{{ route('usuarios.lista') }}" method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" required>
+                <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required>
+                @error('nombre')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="contrasena" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" name="contrasena" required>
+                @error('contrasena')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" name="telefono" required>
+                <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required>
+                @error('telefono')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="fecha_registro" class="form-label">Fecha de Registro</label>
-                <input type="date" class="form-control" name="fecha_registro" required>
+                <input type="date" class="form-control" name="fecha_registro" value="{{ old('fecha_registro') }}" required>
+                @error('fecha_registro')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="correo" class="form-label">Correo</label>
-                <input type="email" class="form-control" name="correo" required>
+                <input type="email" class="form-control" name="correo" value="{{ old('correo') }}" required>
+                @error('correo')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
-                <input type="number" class="form-control" name="tipo_usuario" required>
+                <select class="form-select" name="tipo_usuario" required>
+                    <option value="" {{ old('tipo_usuario') == '' ? 'selected' : '' }} disabled>Seleccione un tipo</option>
+                    <option value="1" {{ old('tipo_usuario') == '1' ? 'selected' : '' }}>Administrador</option>
+                    <option value="2" {{ old('tipo_usuario') == '2' ? 'selected' : '' }}>Cliente</option>
+                </select>
+                @error('tipo_usuario')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
-                <label for="ruta_imagen_usuario" class="form-label">Ruta de Imagen de Usuario</label>
-                <input type="text" class="form-control" name="ruta_imagen_usuario" required>
+                <label for="ruta_imagen_usuario" class="form-label">Imagen de Usuario</label>
+                <input type="file" class="form-control" name="ruta_imagen_usuario" accept="image/*" required>
+                @error('ruta_imagen_usuario')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Guardar Usuario</button>
         </form>
@@ -233,52 +329,49 @@
 </div>
 
 
-
-        <!-- Formulario de Imágenes -->
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">Formulario de Imágenes de Productos</h6>
-                <form>
-                    <div class="mb-3">
-                        <label for="tipo" class="form-label">Tipo</label>
-                        <input type="number" class="form-control" id="tipo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ruta_imagen" class="form-label">Ruta de Imagen</label>
-                        <input type="text" class="form-control" id="ruta_imagen" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar Imagen</button>
-                </form>
+       <!-- Formulario de Imágenes -->
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-secondary rounded h-100 p-4">
+        <h6 class="mb-4">Formulario de Imágenes de Productos</h6>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </div>
+        @endif
+        <form action="{{ route('imagenes.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo</label>
+                <input type="number" class="form-control" name="tipo" value="{{ old('tipo') }}">
+                @error('tipo')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="ruta_imagen" class="form-label">Imagen</label>
+                <input type="file" class="form-control" name="ruta_imagen" accept="image/*" required>
+                @error('ruta_imagen')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Imagen</button>
+        </form>
     </div>
 </div>
 <!-- Form End -->
 
 
 
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
+          
         </div>
         <!-- Content End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+      
     </div>
 
     <!-- JavaScript Libraries -->

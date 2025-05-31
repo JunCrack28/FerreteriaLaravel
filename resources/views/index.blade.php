@@ -42,17 +42,21 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+						<li><a href="#"><i class="fa fa-phone"></i> +506 84476534</a></li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Siquirres</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> CR</a></li>
-						<li><a href="/login/loginUsuario"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
-						<li><a href="{{ route('usuarios.index') }}"><i class="fa fa-user-o"></i> Administrador</a></li>
-
-
-					</ul>
+    <li><a href="#"><i class="fa fa-dollar"></i> CR</a></li>
+    @if (\App\Helpers\AuthHelper::check())
+        <li><a href="{{ route('me') }}"><i class="fa fa-user-o"></i> Mi Perfil ({{ \App\Helpers\AuthHelper::user()->nombre ?? 'Usuario' }})</a></li>
+        <li><a href="{{ route('usuarios.index') }}"><i class="fa fa-user-o"></i> Administrador</a></li>
+        <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
+    @else
+        <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> Iniciar Sesión</a></li>
+        <li><a href="{{ route('usuarios.index') }}"><i class="fa fa-user-o"></i> Administrador</a></li>
+    @endif
+</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
@@ -67,7 +71,7 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="#" class="logo">
-									<img src="./img/logo.png" alt="">
+									<img src="" alt="">
 								</a>
 							</div>
 						</div>
